@@ -6,19 +6,27 @@ export interface valuesExample {
   protein: number
 }
 
-export interface valuesStudent {
-  code: string
-  name: string
-  surname: string
-  college: string
-  major: string
-  instrument: string
-}
-
 export interface attendanceStudent {
   attendance: boolean
   code: string
   first_name: string
   last_name: string
   date: Date
+}
+
+export interface eventsCalendar {
+  id: number
+  title: string
+  start: Date | string
+  end: Date | string
+}
+
+export interface candidates {
+  id: string
+  first_name: string
+  last_name: string
+  project: string
+  degree: string
+  instrument: string
+  rating: number
 }

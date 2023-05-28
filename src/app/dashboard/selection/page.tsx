@@ -1,10 +1,10 @@
 import SelectionClient from '@/components/SelectionClient'
-import { valuesStudent } from '@/types'
+import { candidates } from '@/types'
 
-const getStudents = async (): Promise<any> => await fetch('https://jsonplaceholder.typicode.com/todos').then(async res => await res.json())
+const getStudents = async (): Promise<any> => await fetch('http://localhost:3000/selection/participants', { cache: 'no-store' }).then(async res => await res.json())
 
 const Selection = async (): Promise<any> => {
-  const students: valuesStudent[] = await getStudents()
+  const students: candidates[] = await getStudents()
 
   return (
     <SelectionClient students={students} />

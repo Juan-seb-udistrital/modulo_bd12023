@@ -2,12 +2,17 @@
 
 import Navbar from '@/components/navbar'
 import { ThemeProvider } from 'next-themes'
+import Clock from '@/components/Clock'
+import ProviderRedux from '@/redux/Provider'
 
-const dashBoardLayout = ({ children }: {children: React.ReactNode}) => {
-  return(
+const dashBoardLayout = ({ children }: { children: React.ReactNode }): JSX.Element => {
+  return (
     <ThemeProvider>
-      <Navbar />
-      {children}
+      <ProviderRedux>
+        <Navbar />
+        {children}
+        <Clock />
+      </ProviderRedux>
     </ThemeProvider>
   )
 }

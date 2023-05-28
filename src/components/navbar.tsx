@@ -1,32 +1,49 @@
 'use client'
 
-import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import { usePathname } from 'next/navigation'
-import ThemeChanger from './DarkSwitch'
-import Image from 'next/image'
 import { Disclosure } from '@headlessui/react'
+import { usePathname } from 'next/navigation'
+import { useEffect } from 'react'
+import database from '@/../public/database.png'
+import Image from 'next/image'
+import Link from 'next/link'
+import ThemeChanger from './DarkSwitch'
+import { useSelector, useDispatch } from 'react-redux'
+import { changeValuePlanning, changeValueAttendance, changeValueLiquidation } from '@/redux/Features/navbar'
+import { RootState } from '@/redux/store'
 
 const Navbar = (): JSX.Element => {
+  const { planning, attendance, liquidation } = useSelector((state: RootState) => state.navbar)
+  const dispatch = useDispatch()
   const pathname = usePathname()
-  console.log(pathname)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const getValues: Promise<any> = async () => {
+
+      }
+
+      getValues()
+    }, 600000)
+
+    return () => clearInterval(interval)
+  }, [])
 
   const navigation = [
     {
       label: 'Calendario',
-      href: '/dashboard/calendar'
+      href: 'dashboard/calendar'
     },
     {
       label: 'Selección',
-      href: '/dashboard/selection'
+      href: 'dashboard/selection'
     },
     {
       label: 'Asistencia',
-      href: '/dashboard/attendance'
+      href: 'dashboard/attendance'
     },
     {
       label: 'Reportes',
-      href: '/dashboard/reports'
+      href: 'dashboard/reports'
     }
   ]
 
@@ -42,7 +59,7 @@ const Navbar = (): JSX.Element => {
                   <span className='flex items-center space-x-2 text-2xl font-medium text-indigo-500 dark:text-gray-100'>
                     <span>
                       <Image
-                        src='/img/logo.svg'
+                        src={database}
                         alt='N'
                         width='32'
                         height='32'
@@ -82,13 +99,30 @@ const Navbar = (): JSX.Element => {
                   <>
                     {pathname !== '/' &&
                       (
-                        navigation.map(({ label, href }, index) => (
-                          <Link key={index} href={href} className='w-full px-4 py-2 -ml-4 text-gray-500 rounded-md dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 dark:focus:bg-gray-800 focus:outline-none'>
-                            {label}
-                          </Link>
-                        )))}
+                        <Link href='dashboard/calendar' className={`w-full px-4 py-2 -ml-4 ${planning ? '' : 'pointer-events-none'} text-gray-500 rounded-md dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 dark:focus:bg-gray-800 focus:outline-none`}>
+                          Calendario
+                        </Link>
+                      )}
+                    {pathname !== '/' &&
+                      (
+                        <Link href='dashboard/selection' className={`w-full px-4 py-2 -ml-4 ${!planning ? '' : 'pointer-events-none'} text-gray-500 rounded-md dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 dark:focus:bg-gray-800 focus:outline-none`}>
+                          Selección
+                        </Link>
+                      )}
+                    {pathname !== '/' &&
+                      (
+                        <Link href='dashboard/attendance' className={`w-full px-4 py-2 -ml-4 ${attendance ? '' : 'pointer-events-none'} text-gray-500 rounded-md dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 dark:focus:bg-gray-800 focus:outline-none`}>
+                          Asistencia
+                        </Link>
+                      )}
+                    {pathname !== '/' &&
+                      (
+                        <Link href='dashboard/liquidation' className={`w-full px-4 py-2 -ml-4 ${liquidation ? '' : 'pointer-events-none'} text-gray-500 rounded-md dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 dark:focus:bg-gray-800 focus:outline-none`}>
+                          Liquidación
+                        </Link>
+                      )}
                     {
-                      pathname !== '/'  &&
+                      pathname !== '/' &&
                         (
                           <Link href='/' className='w-full px-6 py-2 mt-3 text-center text-white bg-indigo-600 rounded-md lg:ml-5'>
                             Log out
@@ -106,20 +140,43 @@ const Navbar = (): JSX.Element => {
         {/* menu  */}
         <div className='hidden text-center lg:flex lg:items-center'>
           <ul className='items-center justify-end flex-1 pt-6 list-none lg:pt-0 lg:flex'>
-            {navigation.map(({ label, href }, index) => (
-              <li className='mr-3 nav__item' key={index}>
-                <Link href={href} className='inline-block px-4 py-2 text-lg font-normal  no-underline rounded-md dark:text-gray-200 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none dark:focus:bg-gray-800'>
-                  {label}
-                </Link>
-              </li>
-            ))}
+            {pathname !== '/' &&
+            (
+              <Link href='dashboard/calendar' className={`w-full px-4 py-2 -ml-4 ${planning ? '' : 'pointer-events-none'} text-gray-500 rounded-md dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 dark:focus:bg-gray-800 focus:outline-none`}>
+                Calendario
+              </Link>
+            )}
+            {pathname !== '/' &&
+            (
+              <Link href='dashboard/selection' className={`w-full px-4 py-2 -ml-4 ${!planning ? '' : 'pointer-events-none'} text-gray-500 rounded-md dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 dark:focus:bg-gray-800 focus:outline-none`}>
+                Selección
+              </Link>
+            )}
+            {pathname !== '/' &&
+            (
+              <Link href='dashboard/attendance' className={`w-full px-4 py-2 -ml-4 ${attendance ? '' : 'pointer-events-none'} text-gray-500 rounded-md dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 dark:focus:bg-gray-800 focus:outline-none`}>
+                Asistencia
+              </Link>
+            )}
+            {pathname !== '/' &&
+            (
+              <Link href='dashboard/liquidation' className={`w-full px-4 py-2 -ml-4 ${liquidation ? '' : 'pointer-events-none'} text-gray-500 rounded-md dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 dark:focus:bg-gray-800 focus:outline-none`}>
+                Liquidación
+              </Link>
+            )}
           </ul>
         </div>
 
         <div className='hidden mr-3 space-x-4 lg:flex nav__item'>
-          <Link href='/' className='px-6 py-2 text-white bg-indigo-600 rounded-md md:ml-5'>
-            Get Started
-          </Link>
+          {
+            pathname !== '/' &&
+              (
+                <Link href='/' className='w-full px-6 py-2 mt-3 text-center text-white bg-indigo-600 rounded-md lg:ml-5'>
+                  Log out
+                </Link>
+              )
+
+          }
 
           <ThemeChanger />
         </div>
