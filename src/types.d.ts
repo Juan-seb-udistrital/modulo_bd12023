@@ -30,3 +30,29 @@ export interface candidates {
   instrument: string
   rating: number
 }
+
+export interface attendanceStudents {
+  id: string
+  name: string
+}
+
+export interface attendance {
+  students: attendanceStudents[]
+  activity: {
+    id: string
+    name: string
+  }
+}
+
+export interface reportAttendance {
+  id: string
+  name: string
+  attendance: number
+}
+
+export interface reportLiquidation {
+  id: string
+  name: string
+  project: string
+  hours: number
+}

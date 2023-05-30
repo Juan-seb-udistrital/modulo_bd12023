@@ -15,7 +15,7 @@ const Clock = (): JSX.Element => {
   }, [])
 
   return (
-    <section className='sticky bottom-2 left-2 grid items-center w-44 h-max'>
+    <section className='sticky bottom-2 left-2 grid items-center w-44 h-max bg-slate-200 rounded-md'>
       <div className='flex justify-center items-center'>
         <p>
           Fecha y hora: {hour}

@@ -2,7 +2,7 @@
 
 import { candidates } from '@/types'
 import { useState } from 'react'
-import TableSelection from '../SelectionTable'
+import SelectionTable from '../SelectionTable'
 import { GridRowSelectionModel, GridRowId } from '@mui/x-data-grid'
 
 const SelectionClient = ({ students }: { students: candidates[] }): JSX.Element => {
@@ -54,7 +54,7 @@ const SelectionClient = ({ students }: { students: candidates[] }): JSX.Element 
         showStudents && (
           <article className='flex justify-center'>
             <div className='w-4/5 min-w-[650px]'>
-              <TableSelection students={studentsToShow} setRowSelectionModel={setRowSelectionModel} />
+              <SelectionTable students={studentsToShow} setRowSelectionModel={setRowSelectionModel} />
             </div>
           </article>
         )

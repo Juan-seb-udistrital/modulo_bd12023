@@ -17,35 +17,38 @@ const Navbar = (): JSX.Element => {
   const pathname = usePathname()
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      const getValues: Promise<any> = async () => {
+    const getValues = async (): Promise<any> => {
+      try {
+        const planning: Response = await fetch('http://localhost:3000/navbar/getPlanning')
+        const attendance: Response = await fetch('http://localhost:3000/navbar/getAttendance')
+        const liquidation: Response = await fetch('http://localhost:3000/navbar/getLiquidation')
 
+        const jsonPlanning: {
+          planning: boolean
+        } = await planning.json()
+        const jsonAttendance: {
+          attendance: boolean
+        } = await attendance.json()
+        const jsonLiquidation: {
+          liquidation: boolean
+        } = await liquidation.json()
+        console.log(jsonPlanning, jsonAttendance, jsonLiquidation)
+        dispatch(changeValuePlanning(jsonPlanning.planning))
+        dispatch(changeValueAttendance(jsonAttendance.attendance))
+        dispatch(changeValueLiquidation(jsonLiquidation.liquidation))
+      } catch (err) {
+        console.log(err)
       }
+    }
 
-      getValues()
+    const interval = setInterval(() => {
+      getValues().catch(err => console.log(err))
     }, 600000)
+
+    getValues().catch(err => console.log(err))
 
     return () => clearInterval(interval)
   }, [])
-
-  const navigation = [
-    {
-      label: 'Calendario',
-      href: 'dashboard/calendar'
-    },
-    {
-      label: 'Selección',
-      href: 'dashboard/selection'
-    },
-    {
-      label: 'Asistencia',
-      href: 'dashboard/attendance'
-    },
-    {
-      label: 'Reportes',
-      href: 'dashboard/reports'
-    }
-  ]
 
   return (
     <div className='w-full border-b border-b-gray-400'>

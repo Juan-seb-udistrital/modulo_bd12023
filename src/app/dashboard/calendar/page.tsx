@@ -2,7 +2,7 @@ import { eventsCalendar } from '@/types'
 import BigCalendar from '@/components/BigCalendar'
 import OptionsCalendarClient from '@/components/OptionsCalendarClient'
 
-const fetcher = async (): Promise<eventsCalendar[]> => await fetch('http://localhost:3000/calendar/events').then(async res => await res.json())
+const fetcher = async (): Promise<eventsCalendar[]> => await fetch('http://localhost:3000/calendar/events', { cache: 'no-store' }).then(async res => await res.json())
 
 const Calendar = async (): Promise<any> => {
   const events: eventsCalendar[] = await fetcher()
